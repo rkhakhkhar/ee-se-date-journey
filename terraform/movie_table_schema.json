@@ -1,0 +1,153 @@
+[
+  {
+    "name": "adult",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Flag that indicates if movie is adult or not"
+  },
+  {
+    "name": "belongs_to_collection",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Collections it belongs to"
+  },
+  {
+    "name": "budget",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Budget of the movie"
+  },
+  {
+    "name": "genres",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Genres it belongs to"
+  },
+  {
+    "name": "homepage",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Link to the movie"
+  },
+  {
+    "name": "id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ID of the movie"
+  },
+  {
+    "name": "imdb_id",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "IMDB ID of the movie"
+  },
+  {
+    "name": "original_language",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Language of the movie"
+  },
+  {
+    "name": "original_title",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Title of the movie"
+  },
+  {
+    "name": "overview",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Overview of the movie"
+  },
+  {
+    "name": "popularity",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "popularity number"
+  },
+  {
+    "name": "poster_path",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Poster image"
+  },
+  {
+    "name": "production_companies",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Production companies which produced the movies"
+  },
+  {
+    "name": "production_countries",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Countries where movie produced"
+  },
+  {
+    "name": "release_date",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Release date of the movie"
+  },
+  {
+    "name": "revenue",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Revenue movie generated"
+  },
+  {
+    "name": "runtime",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Total runtime of the movie"
+  },
+  {
+    "name": "spoken_languages",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Languages spoken in the movie"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Status of the movie"
+  },
+  {
+    "name": "tagline",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Tagline of the movie"
+  },
+  {
+    "name": "title",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Title of the movie"
+  },
+  {
+    "name": "video",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Video flag"
+  },
+  {
+    "name": "vote_average",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Average votes"
+  },
+  {
+    "name": "vote_count",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Votes count"
+  },
+  {
+    "name": "load_date",
+    "type": "DATETIME",
+    "mode": "REQUIRED",
+    "defaultValueExpression": "CURRENT_DATETIME()",
+    "description": "Load datetime"
+  }
+]
