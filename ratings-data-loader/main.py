@@ -3,7 +3,7 @@ import os
 from google.cloud import bigquery
 
 
-def load_movie_data(event, context):
+def load_ratings_data(event, context):
     file_data = event
     bucket_name = file_data['bucket']
     file_name = file_data['name']
@@ -11,8 +11,8 @@ def load_movie_data(event, context):
 
     print(f"New File uploaded: {file_name} in bucket {bucket_name}")
 
-    if not file_name.startswith("movie"):
-        print(f"File name is not started with movie. Not meant to be processed here .....")
+    if not file_name.startswith("rating"):
+        print(f"File name is not started with rating. Not meant to be processed here .....")
         return
 
     print(f"Loading new data from: {file_name} in bigquery table {table_id}")
