@@ -1,0 +1,11 @@
+unit_tests:
+  - name: test_rating_curate_fields
+    description: "Check data types of the fields"
+    model: ratings_curate
+    given:
+      - input: source('movies_data_ravi','ratings_raw')
+        rows:
+          - { userId: '67075', movieId: '1', rating: '0.5', timestamp: '1167266342' }
+    expect:
+      rows:
+          - { userId: 67075, movieId: 1, rating: 0.5, timestamp: 1167266342 }

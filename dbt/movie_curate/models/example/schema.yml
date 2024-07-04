@@ -1,0 +1,70 @@
+
+version: 2
+
+models:
+  - name: movies_curate
+    columns:
+      - name: load_date
+        data_type: date
+        data_tests:
+          - not_null
+  - name: ratings_curate
+    columns:
+      - name: load_date
+        data_type: date
+        data_tests:
+          - not_null
+      - name: userId
+        data_type: number
+        data_tests:
+          - not_null
+      - name: rating
+        data_type: number
+        data_tests:
+          - not_null
+      - name: timestamp
+        data_type: number
+        data_tests:
+          - not_null
+
+
+sources:
+  - name: movies_data_ravi
+    tables:
+      - name: movies_raw
+        identifier: movies_raw
+        columns:
+          - name: adult
+          - name: belongs_to_collection
+          - name: budget
+          - name: genres
+          - name: homepage
+          - name: id
+          - name: imdb_id
+          - name: original_language
+          - name: original_title
+          - name: overview
+          - name: popularity
+          - name: poster_path
+          - name: production_companies
+          - name: production_countries
+          - name: release_date
+          - name: revenue
+          - name: runtime
+          - name: spoken_languages
+          - name: status
+          - name: tagline
+          - name: title
+          - name: video
+          - name: vote_average
+          - name: vote_count
+          - name: load_date
+      - name: ratings_raw
+        columns:
+          - name: userId
+          - name: movieId
+          - name: rating
+          - name: timestamp
+          - name: load_date
+
+

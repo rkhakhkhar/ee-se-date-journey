@@ -38,3 +38,4 @@ terraform.rc
 *.xml
 *.plan
 **.venv
+**.log

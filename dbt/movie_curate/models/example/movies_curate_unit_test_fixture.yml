@@ -1,0 +1,90 @@
+unit_tests:
+  - name: test_boolean_type_cast
+    description: "Check boolean like field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { adult: 'TRUE', video: 'TRUE' }
+          - { adult: 'FALSE', video: 'FALSE' }
+    expect:
+      rows:
+        - { adult: true, video: true }
+        - { adult: false, video: false }
+
+  - name: test_genres_json_array_type_cast
+    description: "Check json array field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { genres: "[{'id': 28, 'name': 'Action'}, {'id': 27, 'name': 'Horror'}, {'id': 878, 'name': 'Science Fiction'}]" }
+    expect:
+      rows:
+        - { genres: [ '{"id":28,"name":"Action"}','{"id":27,"name":"Horror"}','{"id":878,"name":"Science Fiction"}'] }
+
+  - name: test_production_companies_json_array_type_cast
+    description: "Check json array field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { production_companies: "[{'name': 'Columbia Pictures', 'id': 5}, {'name': 'Franchise Pictures', 'id': 1403}]" }
+    expect:
+      rows:
+        - { production_companies: [ '{"name":"Columbia Pictures","id":5}','{"name":"Franchise Pictures","id":1403}'] }
+
+  - name: test_production_countries_json_array_type_cast
+    description: "Check json array field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { production_countries: "[{'iso_3166_1': 'PL', 'name': 'Poland'}, {'iso_3166_1': 'US', 'name': 'United States of America'}]" }
+    expect:
+      rows:
+        - { production_countries: [ '{"iso_3166_1":"PL","name":"Poland"}','{"iso_3166_1":"US","name":"United States of America"}'] }
+
+  - name: test_spoken_languages_json_array_type_cast
+    description: "Check json array field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { spoken_languages: "[{'iso_639_1': 'en', 'name': 'English'}, {'iso_639_1': 'pt', 'name': 'Português'}]" }
+    expect:
+      rows:
+        - { spoken_languages: [ '{"iso_639_1":"en","name":"English"}','{"iso_639_1":"pt","name":"Português"}'] }
+
+  - name: test_json_type_cast
+    description: "Check json like field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { belongs_to_collection: '{"a": 1, "b": 2}' }
+    expect:
+      rows:
+        - { belongs_to_collection: { "a": 1, "b": 2 } }
+
+  - name: test_number_type_cast
+    description: "Check number like field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { budget: "15000000", id: "9536", popularity: "6.387469", revenue: "15843608", runtime: "87", vote_average: "4.4", vote_count: "107" }
+    expect:
+      rows:
+        - { budget: 15000000, id: 9536, popularity: 6.387469, revenue: 15843608, runtime: 87, vote_average: 4.4, vote_count: 107 }
+
+  - name: test_date_type_cast
+    description: "Check release_date field is cast properly"
+    model: movies_curate
+    given:
+      - input: source('movies_data_ravi','movies_raw')
+        rows:
+          - { release_date: "2000-09-01" }
+    expect:
+      rows:
+        - { release_date: "2000-09-01" }
