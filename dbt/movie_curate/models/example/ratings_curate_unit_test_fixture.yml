@@ -2,10 +2,50 @@ unit_tests:
   - name: test_rating_curate_fields
     description: "Check data types of the fields"
     model: ratings_curate
+    overrides:
+      macros:
+        is_incremental: false
     given:
       - input: source('movies_data_ravi','ratings_raw')
         rows:
           - { userId: '67075', movieId: '1', rating: '0.5', timestamp: '1167266342' }
     expect:
       rows:
-          - { userId: 67075, movieId: 1, rating: 0.5, timestamp: 1167266342 }
+        - { userId: 67075, movieId: 1, rating: 0.5, timestamp: 1167266342 }
+
+  - name: test_only_latest_rating_for_movie_by_user_is_picked_up
+    description: "Check data types of the fields"
+    model: ratings_curate
+    overrides:
+      macros:
+        is_incremental: false
+    given:
+      - input: source('movies_data_ravi','ratings_raw')
+        rows:
+          - { userId: '1', movieId: '858', rating: '1', timestamp: '1048076945' }
+          - { userId: '1', movieId: '858', rating: '2', timestamp: '1048076946' }
+          - { userId: '1', movieId: '858', rating: '2.5', timestamp: '2048076947' }
+    expect:
+      rows:
+        - { userId: 1, movieId: 858, rating: 2.5, timestamp: 2048076947 }
+
+  - name: test_only_latest_rating_for_movie_by_user_is_picked_up_comparing_existing_rows
+    description: "Check new rating has new timestamp"
+    model: ratings_curate
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: this
+        rows:
+          - { userId: 1, movieId: 858, rating: 2.5, timestamp: 2048076947 }
+          - { userId: 1, movieId: 859, rating: 3.0, timestamp: 1048076947 }
+      - input: source('movies_data_ravi','ratings_raw')
+        rows:
+          - { userId: '1', movieId: '858', rating: '3.7', timestamp: '3048076945' }
+          - { userId: '1', movieId: '859', rating: '4.0', timestamp: '1048076946' }
+          - { userId: '2', movieId: '860', rating: '4.0', timestamp: '4048076946' }
+    expect:
+      rows:
+        - { userId: 1, movieId: 858, rating: 3.7, timestamp: 3048076945 }
+        - { userId: 2, movieId: 860, rating: 4.0, timestamp: 4048076946 }

@@ -60,6 +60,7 @@ sources:
           - name: vote_count
           - name: load_date
       - name: ratings_raw
+        identifier: ratings_raw
         columns:
           - name: userId
           - name: movieId

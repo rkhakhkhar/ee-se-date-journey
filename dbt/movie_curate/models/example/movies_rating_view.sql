@@ -1,18 +1,19 @@
 {{ config(materialized='view') }}
 
-with movie_wise_media_rating as (select
-  movieId,
-  COUNT(movieId) as number_of_ratings,
-  ANY_VALUE(median_rating) as median_rating
-FROM (
-  SELECT
-    movieId,
-    PERCENTILE_CONT(rating, 0.5) OVER (PARTITION BY movieId) AS median_rating
-  FROM {{ ref('ratings_curate') }}
+with movie_wise_median_rating as (
+    select
+        movieId,
+        percentile_cont(rating, 0.5) over (partition BY movieId) AS median_rating
+      from {{ ref('ratings_curate') }}
+ ),
+ movie_wise_median_rating_with_count as (
+    select
+        movieId,
+        count(movieId) as number_of_ratings,
+        ANY_VALUE(median_rating) as median_rating
+    from movie_wise_median_rating
+    group by movieId
  )
-GROUP BY
-  movieId
-)
 
 select
    movies.original_title as title,
@@ -21,5 +22,5 @@ select
    ratings.median_rating as median_rating,
    RANK() OVER (ORDER BY ratings.median_rating DESC) AS rank
 from {{ ref('movies_curate') }} as movies
-inner join movie_wise_media_rating as ratings
+inner join movie_wise_median_rating_with_count as ratings
 on movies.id = ratings.movieId
